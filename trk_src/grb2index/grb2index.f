@@ -238,7 +238,10 @@ C$$$
       CHARACTER C*(*)
 C - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       K=N
-      DOWHILE(K.GE.1.AND.C(K:K).NE.'/')
+CDAA  AVOID forrtl: severe (408): fort: (5): Variable C has substring starting point 0 which is less than one
+CDAA      DOWHILE(K.GE.1.AND.C(K:K).NE.'/')
+      DOWHILE(K.GE.1)
+        IF(C(K:K).EQ.'/') EXIT
         K=K-1
       ENDDO
       NCBASE=K+1
