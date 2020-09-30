@@ -18554,6 +18554,7 @@ c
         print *,' '
         print *,'Values read in from netcdflist namelist: '
         print *,' '
+        write (unit=6,nml=netcdflist)
         write (6,300) netcdfinfo%num_netcdf_vars  ! Total *possible* 
                                   ! number of input NetCDF variables,
                                   ! including those that are included
