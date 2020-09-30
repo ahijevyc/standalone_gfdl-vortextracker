@@ -14,7 +14,7 @@ LIB_JASPER_PATH =   CONFIGURE_JASPER_PATH
 
 # Extra flags needed for including or linking to GRIB2 library:
 GRIB2_FFLAGS    =   CONFIGURE_TRACKER_FFLAGS -I../../libs/mods/g2
-GRIB2_LIBS      =   CONFIGURE_TRACKER_LIBS
+GRIB2_LIBS      =   -L/usr/lib64 -ljpeg CONFIGURE_TRACKER_LIBS
 CFLAGS_GRIB2    =   -ICONFIGURE_JASPER_PATH/../include 
 #### Architecture specific settings ####
 
