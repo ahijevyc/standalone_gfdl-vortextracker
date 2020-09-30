@@ -1,0 +1,374 @@
+###########################################################
+#ARCH	AIX  #serial
+#
+
+BYTE_ORDER     =   BIG_ENDIAN
+SFC            =   xlf_r 
+SF90           =   xlf90  -qfree
+SCC            =   xlc_r
+FFLAGS_SINGLE  =   -qintsize=4 -qrealsize=4
+FFLAGS_DOUBLE  =   -qintsize=4 -qrealsize=8
+FFLAGS         =   -g -O0 -qcheck -qextchk -qwarn64 -qarch=auto -qflttrap=ov:zero:inv:enable $(FFLAGS_DOUBLE)
+CFLAGS         =   -O0 -g -I ./ -q64 -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' -DIBM4
+FFLAGS_BACIO   =
+CFLAGS_BACIO   =   $(CFLAGS)
+FFLAGS_G2      =                  
+CFLAGS_G2      =   
+FFLAGS_SIGIO   =
+FFLAGS_W3      =   $(FFLAGS_DOUBLE)
+CFLAGS_w3      =   $(CFLAGS)
+FFLAGS_W3I4R4  =   $(FFLAGS_DOUBLE)
+CFLAGS_w3I4R4  =   $(CFLAGS)
+DEBUG_FLAGS    =   
+CPP            =   cpp 
+CPPFLAGS       =   -P -traditional -D$(BYTE_ORDER) -DWRF -Dibm_sp -I/usr/lpp/ppe.poe/include/thread
+ARFLAGS        =  -ruv -X64
+
+DM_FC          =   mpxlf_r  
+DM_F90         =   mpxlf90_r  -qfree
+DM_CC          =   mpcc
+
+
+###########################################################
+#ARCH	Linux i486 i586 i686, PGI compiler #serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec 
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   pgf90
+SF90           =   pgf90 -Mfree -C 
+SCC            =   pgcc
+#FFLAGS=-O0 -DLANGUAGE_FORTRAN -DsysLinux -Kieee -pc 32 -byteswapio $(DEBUG_FLAGS)
+DEBUG_FLAGS    =   -g -Ktrap=fp -C
+FFLAGS_SINGLE  =   -i4 -r4
+FFLAGS_DOUBLE  =   -i4 -r4
+FFLAGS         =   -O2 -Kieee -pc 32 -DLANGUAGE_FORTRAN -DsysLinux $(FFLAGS_DOUBLE)
+CFLAGS         =   -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O0 -DLANGUAGE_FORTRAN  -pc 32 -DsysLinux -DLINUX  $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O0 -DLANGUAGE_FORTRAN  -pc 32 -DsysLinux -DLINUX  
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O0 -DLANGUAGE_FORTRAN  -pc 32 -DsysLinux -DLINUX  
+FFLAGS_W3      =   -O0 -DLANGUAGE_FORTRAN  -pc 32 -DsysLinux -DLINUX  $(FFLAGS_DOUBLE) 
+CFLAGS_w3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O0 -DLANGUAGE_FORTRAN  -pc 32 -DsysLinux -DLINUX  $(FFLAGS_SINGLE) 
+CFLAGS_w3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+
+CPP            =   /lib/cpp 
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   mpif90 -f90=pgf90
+DM_F90         =   mpif90 -Mfree -f90=pgf90
+DM_CC          =   mpicc 
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+###########################################################
+#ARCH	Linux x86_64, PGI compiler # serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec 
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   pgf90
+SF90           =   pgf90 -Mfree -C 
+SCC            =   pgcc
+#FFLAGS=-O0 -Kieee -pc 64 -byteswapio -DLANGUAGE_FORTRAN -DsysLinux $(DEBUG_FLAGS)
+DEBUG_FLAGS    =   -g -Ktrap=fp -C
+FFLAGS_SINGLE  =   -i4 -r4
+FFLAGS_DOUBLE  =   -i4 -r4
+FFLAGS         =   -O2 -Kieee -pc 64 -DLANGUAGE_FORTRAN -DsysLinux $(FFLAGS_DOUBLE)
+CFLAGS         =   -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX 
+FFLAGS_W3      =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX  $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+
+CPP            =   /lib/cpp 
+CPPFLAGS       =   -P -traditional -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   mpif90 -f90=pgf90
+DM_F90         =   mpif90 -Mfree -f90=pgf90
+DM_CC          =   mpicc 
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+
+###########################################################
+#ARCH	Linux i486 i586 i686, Intel compiler	#serial 
+#
+LDFLAGS        =   -Wl,-noinhibit-exec 
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   ifort
+SF90           =   ifort -free
+SCC            =   icc
+DEBUG_FLAGS    =   -g -traceback
+FFLAGS_SINGLE  =   -i4 -r4
+FFLAGS_DOUBLE  =   -i4 -r4
+FFLAGS         =   -O2 -fp-model precise   $(FFLAGS_DOUBLE)
+CFLAGS         =   -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl 
+FFLAGS_W3      =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+CPP            =   /lib/cpp 
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   mpif90
+DM_F90         =   mpif90 -free
+DM_CC          =   mpicc
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+###########################################################
+#ARCH	Linux x86_64, Intel compiler	# serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec  ${ARCHINTELOPT}
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   ifort
+SF90           =   ifort -free
+SCC            =   icc
+DEBUG_FLAGS    =   -g -traceback
+FFLAGS_SINGLE  =  -integer-size 32 -real-size 32
+FFLAGS_DOUBLE  =  -integer-size 32 -real-size 32
+FFLAGS         =   -O2 -fp-model precise ${ARCHINTELOPT}  $(FFLAGS_DOUBLE)
+CFLAGS         =   -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl ${ARCHINTELOPT} $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl ${ARCHINTELOPT} 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl ${ARCHINTELOPT} 
+FFLAGS_W3      =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl ${ARCHINTELOPT} $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl ${ARCHINTELOPT} $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+CPP            =   /lib/cpp 
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   mpif90 -fc=$(SFC)
+DM_F90         =   mpif90 -fc=$(SFC) -free
+DM_CC          =   mpicc
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+###########################################################
+#ARCH	Linux x86_64, Intel compiler super debug	# serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   ifort
+SF90           =   ifort -free
+SCC            =   icc
+DEBUG_FLAGS    =   -g -traceback
+FFLAGS_SINGLE  =   -i4 -r4
+FFLAGS_DOUBLE  =   -i4 -r4
+FFLAGS_SINGLE  =  -integer-size 32 -real-size 32
+FFLAGS_DOUBLE  =  -integer-size 32 -real-size 32
+FFLAGS         =   -O0 -check arg_temp_created,bounds,format,pointers -debug all -fp-model precise  -g -traceback $(FFLAGS_DOUBLE)
+CFLAGS         =   -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT} ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O0 -g -traceback -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O0 -debug all -g -traceback -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O0 -g -traceback -msse2 -DLINUX -fp-model precise -assume byterecl 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O0 -g -traceback -msse2 -DLINUX -fp-model precise -assume byterecl 
+FFLAGS_W3      =   -O0 -g -traceback -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O0 -debug all -g -traceback -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O0 -g -traceback -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O0 -debug all -g -traceback -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+
+CPP            =   /lib/cpp 
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   mpif90
+DM_F90         =   mpif90 -free
+DM_CC          =   mpicc
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+###########################################################
+#ARCH	Linux x86_64, PGI compiler, SGI MPT # serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec -L$(MPI_ROOT)/lib
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   pgf90
+SF90           =   pgf90 -Mfree -C 
+SCC            =   pgcc
+DEBUG_FLAGS    =   -g -Ktrap=fp -C
+FFLAGS_SINGLE  =   -i4 -r4
+FFLAGS_DOUBLE  =   -i4 -r4
+FFLAGS         =   -O2 -Kieee -pc 64 -DLANGUAGE_FORTRAN -DsysLinux \
+                   -I$(MPI_ROOT)/include $(FFLAGS_DOUBLE)
+CFLAGS         =  -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char \
+                  -DFortranInt=int -DFortranLlong='long long' -I$(MPI_ROOT)/include ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+
+FFLAGS_G2      =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX 
+FFLAGS_W3      =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O0  -pc 64 -DLANGUAGE_FORTRAN -DsysLinux -DLINUX $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+CPP            =   /lib/cpp
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   pgf90 -lmpi
+DM_F90         =   pgf90 -Mfree -lmpi
+DM_CC          =   pgcc -lmpi
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+###########################################################
+#ARCH	Linux x86_64, Intel compiler, SGI MPT	# serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec  -L$(MPI_ROOT)/lib
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   ifort
+SF90           =   ifort -free
+SCC            =   icc
+DEBUG_FLAGS    =   -g -traceback
+FFLAGS_SINGLE  =  -integer-size 32 -real-size 32
+FFLAGS_DOUBLE  =  -integer-size 32 -real-size 32
+FFLAGS         =   -O2 -fp-model precise $(FFLAGS_DOUBLE) \
+                   -I$(MPI_ROOT)/include
+CFLAGS         =  -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char \
+                  -DFortranInt=int -DFortranLlong='long long' -I$(MPI_ROOT)/include ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O3 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O3 -DLINUX -fp-model precise -assume byterecl 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O3 -DLINUX -fp-model precise -assume byterecl 
+FFLAGS_W3      =   -O3 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O3 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+CPP            =   /lib/cpp
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   ifort -lmpi
+DM_F90         =   ifort -free -lmpi
+DM_CC          =   icc -lmpi
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+###########################################################
+#ARCH	Linux x86_64, Intel compiler, IBM POE	# serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec -L$(MPI_ROOT)/lib
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   ifort
+SF90           =   ifort -free
+SCC            =   icc
+DEBUG_FLAGS    =   -g -traceback
+FFLAGS_SINGLE  =  -integer-size 32 -real-size 32
+FFLAGS_DOUBLE  =  -integer-size 32 -real-size 32
+FFLAGS         =   -O2 -fp-model precise $(FFLAGS_DOUBLE) \
+                   -I$(MPI_ROOT)/include
+CFLAGS         =  -O0 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char \
+                  -DFortranInt=int -DFortranLlong='long long' -I$(MPI_ROOT)/include ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O3 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_G2      =   -O3 -DLINUX -fp-model precise -assume byterecl
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O3 -DLINUX -fp-model precise -assume byterecl 
+FFLAGS_W3      =   -O3 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O3 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+CPP            =   /lib/cpp
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   mpfort
+DM_F90         =   mpfort -free
+DM_CC          =   mpcc
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90) 
+CC             =   CONFIGURE_CC
+
+
+###########################################################
+#ARCH	Linux x86_64, Intel compiler, CrayPE	# serial
+#
+LDFLAGS        =   -Wl,-noinhibit-exec  -L$(MPI_ROOT)/lib
+
+BYTE_ORDER     =   LITTLE_ENDIAN
+SFC            =   ftn -static
+SF90           =   ftn -free -static
+SCC            =   cc
+DEBUG_FLAGS    =   -g -traceback
+FFLAGS_SINGLE  =  -integer-size 32 -real-size 32
+FFLAGS_DOUBLE  =  -integer-size 32 -real-size 32
+FFLAGS         =   -O2 -fp-model precise $(FFLAGS_DOUBLE) \
+                   -I$(MPI_ROOT)/include
+CFLAGS         =  -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char \
+                  -DFortranInt=int -DFortranLlong='long long' -I$(MPI_ROOT)/include ${ARCHINTELOPT}
+FFLAGS_BACIO   =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_BACIO   =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+
+FFLAGS_G2      =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl 
+CFLAGS_G2      =   -O3 -DUNDERSCORE $(CFLAGS_GRIB2) ${ARCHINTELOPT}
+FFLAGS_SIGIO   =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl 
+FFLAGS_W3      =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_DOUBLE)
+CFLAGS_W3      =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+FFLAGS_W3I4R4  =   -O3 -msse2 -DLINUX -fp-model precise -assume byterecl $(FFLAGS_SINGLE)
+CFLAGS_W3I4R4  =   -O3 -DLINUX -DUNDERSCORE -Dfunder -DFortranByte=char -DFortranInt=int -DFortranLlong='long long' ${ARCHINTELOPT}
+CPP            =   /lib/cpp
+CPPFLAGS       =   -P -traditional-cpp -D$(BYTE_ORDER) -DWRF -DLINUX
+ARFLAGS        =  -ruv
+
+DM_FC          =   ftn
+DM_F90         =   ftn -free
+DM_CC          =   cc
+
+FC             =   CONFIGURE_FC
+F90            =   $(SF90)
+CC             =   CONFIGURE_CC
+
+
+##################################################################
+#ARCH	NULL

@@ -1,0 +1,20 @@
+
+SHELL           	=       /bin/sh
+
+# Listing of options that are usually independent of machine type.
+# When necessary, these are over-ridden by each architecture.
+
+#ARFLAGS			=
+
+# Variables set by arch/Config.pl:
+
+LIB_Z_PATH      =   CONFIGURE_Z_PATH
+LIB_PNG_PATH    =   CONFIGURE_PNG_PATH
+LIB_JASPER_PATH =   CONFIGURE_JASPER_PATH
+
+# Extra flags needed for including or linking to GRIB2 library:
+GRIB2_FFLAGS    =   CONFIGURE_TRACKER_FFLAGS -I../../libs/mods/g2
+GRIB2_LIBS      =   CONFIGURE_TRACKER_LIBS
+CFLAGS_GRIB2    =   -ICONFIGURE_JASPER_PATH/../include 
+#### Architecture specific settings ####
+
