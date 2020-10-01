@@ -4,3 +4,4 @@ trk_plot
 *.mod
 *.exe
 lib*.a
+*.trk

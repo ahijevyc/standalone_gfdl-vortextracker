@@ -10451,6 +10451,14 @@ c     Calculate average wind at each level (currently: 850, 700 & 500)
      &           ,imax,jmax,ibeg,jbeg,iend,jend,v(1,1,n),valid_pt
      &           ,bskip,re,ri,vavg,icount,ctype,trkrinfo,ivret)
       
+            if (u(1,1,n) < -999) then
+                write(6,*)'n,u1=',n,u(1,1,n),'is a u level missing?'
+                stop
+            endif 
+            if (v(1,1,n) < -999) then
+                write(6,*)'n,v1=',n,v(1,1,n),'is a v level missing?'
+                stop
+            endif 
             if (iuret /= 0 .or. ivret /= 0) then
  
 c             ...barnes probably tried to access a pt outside the grid
