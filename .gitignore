@@ -1,5 +1,3 @@
-libs
-trk_plot
 *.o
 *.mod
 *.exe
