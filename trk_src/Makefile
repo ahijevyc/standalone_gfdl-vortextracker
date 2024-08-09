@@ -4,7 +4,7 @@ SHELL=/bin/sh
 # Include machine dependent compile & load options
 #------------
 
-SUBDIRS = grb2index grbindex gettrk vint tave
+SUBDIRS = gettrk vint tave
 
 all: $(SUBDIRS)
 

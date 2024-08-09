@@ -1,7 +1,0 @@
-Build rules
-
-xlf no flags
-
-ifort -g -traceback -O3 -xT -fp-model precise
-
-pgf90 -O3

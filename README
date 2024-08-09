@@ -1,3 +1,9 @@
+if derecho (found with `find /glade/u/apps/derecho/*/* -name libz.a`)
+# ignoring problem compiling vint and tave, not gettrk 
+module load grib-util parallel-netcdf
+setenv LIB_Z_PATH /glade/u/apps/derecho/23.09/spack/opt/spack/zlib/1.2.13/gcc/7.5.0/g42i/lib
+setenv LIB_PNG_PATH /glade/u/apps/derecho/23.09/spack/opt/spack/libpng/1.6.39/gcc/7.5.0/4xws/lib64
+setenv LIB_JASPER_PATH /glade/u/apps/derecho/23.09/spack/opt/spack/jasper/2.0.32/gcc/7.5.0/sptl/lib64
 if cheyenne
 setenv LIB_Z_PATH /glade/u/apps/ch/os/usr/lib64
 setenv LIB_PNG_PATH /glade/u/apps/ch/os/usr/lib64
